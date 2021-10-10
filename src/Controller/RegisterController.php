@@ -11,6 +11,9 @@ use Symfony\Component\HttpFoundation\Request; //<--Conséquence de la ligne 17
 
 class RegisterController extends AbstractController
 {
+
+  // private $entityManager;
+  // public function /// <--ON EN EST LA !!!!!!!!!
   /**
    * @Route("/inscription", name="register")
    */
@@ -33,7 +36,8 @@ class RegisterController extends AbstractController
 
       $user = $form->getData(); //Cela injecte dans mon objet user toutes les données que tu récupères dans le formulaire 
       //dd($user);
-
+// $doctrine-> persist($user);
+// $doctrine->flush($user); 
 
     }
 
