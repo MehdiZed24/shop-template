@@ -51,8 +51,18 @@ class RegisterType extends AbstractType
         'invalid_message' => "Le mot de passe n'est pas identique",
         'label' => 'Votre mot de passe',
         'required' => true,
-        "first_options" => ['label' => 'Mot de Passe'],
-        "second_options" => ['label' => 'Confirmation de votre mot de passe'],
+        "first_options" => [
+          'label' => 'Mot de Passe',
+          "attr" => [
+            "placeholder" => "Veuillez saisir votre mot de passe"
+          ]
+        ],
+        "second_options" => [
+          'label' => 'Confirmation de votre mot de passe',
+          "attr" => [
+            "placeholder" => "Veuillez de confirmer votre mot de passe"
+          ]
+        ],
         'attr' => [
           'placeholder' => 'Merci de saisir votre mot de passe'
         ]
