@@ -5,14 +5,13 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegisterType;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request; //<--Conséquence de la ligne 17
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class RegisterController extends AbstractController
 {
-
   private $entityManager;
   public function __construct(EntityManagerInterface $entityManager)
   {
@@ -22,7 +21,7 @@ class RegisterController extends AbstractController
   /**
    * @Route("/inscription", name="register")
    */
-  public function index(Request $request)
+  public function index(Request $request, UserPasswordHasherInterface $encoder)
   { //<-- cf ligne 36
 
     $user = new User();
@@ -41,8 +40,12 @@ class RegisterController extends AbstractController
 
       $user = $form->getData(); //Cela injecte dans mon objet user toutes les données que tu récupères dans le formulaire 
       //dd($user);
-      $this->EntityManager->persist($user);
-      $this->EntityManager->flush($user);
+
+      $password = $encoder->hashPassword($user, $user->getPassword());
+      $user->setPassword($password);
+
+      $this->entityManager->persist($user);
+      $this->entityManager->flush($user);
     }
 
     return $this->render('register/index.html.twig', [

@@ -11,6 +11,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class RegisterType extends AbstractType
 {
@@ -19,17 +21,24 @@ class RegisterType extends AbstractType
     $builder
       ->add('firstname', TextType::class, [
         'label' => "Votre prenom",
+        'constraints' => new Length(null, 2, 30),
+        'constraints' => new NotBlank(null, 'Veuillez renseigner ce champ'),
         'attr' => [
           'placeholder' => "Merci de saisir votre prénom"
         ]
       ])
       ->add('lastname', TextType::class, [
+        'constraints' => new Length(null, 2, 30),
+        'constraints' => new NotBlank(null, 'Veuillez renseigner ce champ'),
+
         'label' => "Votre Nom",
         'attr' => [
           'placeholder' => "Merci de saisir votre nom"
         ]
       ])
       ->add('email', EmailType::class, [
+        'constraints' => new Length(null, 2, 40),
+        'constraints' => new NotBlank(null, 'Veuillez renseigner ce champ'),
         'label' => "Votre email",
         'attr' => [
           'placeholder' => "Merci de saisir votre email"
@@ -37,6 +46,8 @@ class RegisterType extends AbstractType
       ])
       ->add('password', RepeatedType::class, [
         'type' => PasswordType::class,
+        'constraints' => new Length(null, 8, 16),
+        'constraints' => new NotBlank(null, 'Veuillez renseigner ce champ'),
         'invalid_message' => "Le mot de passe n'est pas identique",
         'label' => 'Votre mot de passe',
         'required' => true,
