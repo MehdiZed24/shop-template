@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte - Zed Shop
+{% endblock %}
+
+{% block content %}
+	<h1>Mon compte</h1>
+	Bonjour
+	{{app.user.firstName}}
+	dans votre compte. C'est dans cet espace que vous allez pouvoir gérér toutes vos informations personnelles.
+	<hr>
+	<a href="{{ path ('account_password') }}">Modifier mon mot de passe</a>
+	<br>
+	- Ajouter mes adresses de livraison<br>
+	-Affichage des commandes
+	<br>
+	<hr>
+
+{% endblock %}

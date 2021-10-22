@@ -45,7 +45,7 @@ class RegisterController extends AbstractController
       $user->setPassword($password);
 
       $this->entityManager->persist($user);
-      $this->entityManager->flush($user);
+      $this->entityManager->flush();
     }
 
     return $this->render('register/index.html.twig', [
