@@ -3,14 +3,13 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Product;
+use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
-use EasyCorp\Bundle\EasyAdminBundle\Form\Type\SlugType;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class ProductCrudController extends AbstractCrudController
 {
@@ -25,11 +24,15 @@ class ProductCrudController extends AbstractCrudController
     return [
       TextField::new('name'),
       SlugField::new('slug')->setTargetFieldName('name'),
-      ImageField::new('illustration'),
+      ImageField::new('illustration')
+        ->setBasePath('uploads/')
+        ->setUploadDir('public/uploads')
+        ->setUploadedFileNamePattern('[randomhash].[extension]')
+        ->setRequired(true), //Le cours met cela à false mais cela propose à l'utilisateur de ne rien mettre et me renvoie une image.
+
       TextField::new('subtitle'),
       TextareaField::new('description'),
       MoneyField::new('price')->setCurrency('EUR'),
-      //CollectionField::new('category') // Nous n'avons pas conserver celui ci parce qu'il créer plusieurs catégories pour un seul produit, on préfère donc AssociationField
       AssociationField::new('category')
     ];
   }
