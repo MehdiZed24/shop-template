@@ -1,5 +1,6 @@
 body {
   position: relative;
+  min-height: 100vh;
 }
 
 .navbar-item-custom a,
@@ -10,9 +11,7 @@ body {
 .footer-custom {
   text-align: center;
   position: absolute;
-  bottom: 0;
   width: 100%;
-  height: fit-content;
   background-color: #dfeaff;
   padding-top: 25px;
 }
@@ -38,7 +37,7 @@ body {
   font-weight: bold;
 }
 
-.product-container {
+.product_container {
   margin-bottom: 150px;
 }
 .product-page-price {

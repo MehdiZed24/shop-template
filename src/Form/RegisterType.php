@@ -67,8 +67,9 @@ class RegisterType extends AbstractType
           'placeholder' => 'Merci de saisir votre mot de passe'
         ]
       ])
-
       ->add('submit', SubmitType::class, ['label' => "S'inscrire"]); //Bouton Submit 
+
+
   }
 
   public function configureOptions(OptionsResolver $resolver)
