@@ -49,7 +49,7 @@ class Product
     private $price;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="products")
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="products", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;

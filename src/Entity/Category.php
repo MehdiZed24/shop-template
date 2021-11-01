@@ -26,7 +26,7 @@ class Category
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="category")
+     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="category", cascade={"persist", "remove"})
      */
     private $products;
 
@@ -77,12 +77,14 @@ class Category
 
     public function removeProduct(Product $product): self
     {
-        if ($this->products->removeElement($product)) {
+        if ($this->products->contains($product)) {
+            $this->products->removeElement($product);
             // set the owning side to null (unless already changed)
             if ($product->getCategory() === $this) {
                 $product->setCategory(null);
             }
         }
+
 
         return $this;
     }
