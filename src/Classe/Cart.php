@@ -36,4 +36,14 @@ class Cart
   {
     return $this->session->remove('cart');
   }
+
+  public function delete($id)
+  {
+    $cart = $this->session->get('cart');
+    unset($cart[$id]); //on utilise unset car cart est un tableau.
+
+    // return $cart; on a passé la formule en dessous pour bien reset le cart une fois que la fonction delete a agi.
+    
+    return $this->session->set('cart', $cart);
+  }
 }

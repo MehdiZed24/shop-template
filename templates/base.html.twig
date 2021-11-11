@@ -12,8 +12,7 @@
 		</title>
 
 		<!-- Bootstrap core CSS -->
-		<link href="{{asset ('assets/css/bootstrap.min.css') }}" rel="stylesheet">
-		<link rel="stylesheet" href="{{asset ('assets/css/ZedShop.css') }}">
+		<link href="{{asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
 
 		<style>
 			.bd-placeholder-img {
@@ -33,6 +32,8 @@
 		</style>
 		<!-- Custom styles for this template -->
 		<link href="{{asset('assets/css/carousel.css')}}" rel="stylesheet">
+		<link rel="stylesheet" href="{{ asset ('assets/css/ZedShop.css') }}">
+
 	</head>
 	<body>
 		<header>
@@ -61,14 +62,15 @@
 								<small>({{app.user.firstname}})</small>
 							</a>
 							|
-							<a href="{{ path ('app_logout') }}">Deconnexion</a>
+							<a href="{{ path ('app_logout') }}">Deconnexion |
+							</a>
 						{% else %}
 							<a href="{{ path ('app_login') }}">Connexion</a>
 							|
 							<a href="{{ path ('register') }}">Inscription</a>
 						{% endif %}
 					</div>
-
+					<a class="btn btn-sm btn-success pl-2" href="	{{ path('cart') }}" role="button">Mon panier</a>
 
 				</div>
 			</nav>
@@ -134,7 +136,7 @@
 
 
 			<!-- Marketing messaging and featurettes
-																																							================================================== -->
+																																																																																				================================================== -->
 			<!-- Wrap the rest of the page in another container to center all the content. -->
 
 			<div class="container marketing {% if block('carousel') is not defined %}mt-5{% endif %}"> {% block content %}{% endblock content %}

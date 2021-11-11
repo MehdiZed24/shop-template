@@ -4,55 +4,75 @@
 {% endblock %}
 
 {% block content %}
-	<h1>Mon Panier</h1>
-	Retrouvez l'ensemble des produits séléctionés dans votre pannier.
-	<table class="table table-hover mt-3">
-		<thead>
-			<tr>
-				<th scope="col">Produit</th>
-				<th scope="col"></th>
-				<th scope="col">Quantité</th>
-				<th scope="col">Prix</th>
-				<th scope="col">Total</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% set total = null %}
-			{# Déclaration de variable avec twig #}
 
-			{% for product in cart %}
-				{# A chaque fois que j'ai un produit dans mon pannier tu l'affiches  #}
+	<a href="{{ path ('products') }}" class="btn btn-sm btn-secondary">Retour aux produits</a>
+	<br>
 
+	<h1 class="text-center"=>Mon Panier</h1>
+	<p class="text-center">
+		Retrouvez l'ensemble des produits séléctionés dans votre pannier.</p>
+	{% if cart|length > 0 %}
+
+
+		<table class="table table-hover mt-3">
+			<thead>
 				<tr>
-					<th scope="row">
-						<img src="/uploads/{{product.product.illustration}}" alt="{{product.product.name}}" height="50px">
-					</th>
-
-					<td>{{product.product.name}}
-						<br/>
-						<small>{{product.product.subtitle}}</small>
-					</td>
-					<td>{{product.quantity}}</td>
-					<td>{{ (product.product.price /100)| number_format(2,'.',',') }}
-						€</td>
-					<td>
-						{{((product.product.price * product.quantity) /100)| number_format(2,'.',',') }}
-						€</td>
+					<th scope="col">Produit</th>
+					<th scope="col"></th>
+					<th scope="col">Quantité</th>
+					<th scope="col">Prix</th>
+					<th scope="col">Total</th>
+					<th></th>
 				</tr>
-				{% set total = total + (product.product.price * product.quantity) %}
-			{% endfor %}
-		</tbody>
-	</table>
-	<div class="text-right mb-5">
-		<b>Nombre de produit :
-		</b>
-		{{cart|length}}<br>
-		<b>Prix total de mon panier :</b>
-		{{ (total/100)| number_format(2,'.',',') }}
-		€
-		<br>
-		<a href="" class="btn btn-success m-3">Valider mon panier</a>
+			</thead>
+			<tbody>
+				{% set total = null %}
+				{# Déclaration de variable avec twig #}
 
-	</div>
+				{% for product in cart %}
+					{# A chaque fois que j'ai un produit dans mon pannier tu l'affiches  #}
+
+					<tr>
+						<th scope="row">
+							<img src="/uploads/{{product.product.illustration}}" alt="{{product.product.name}}" height="50px">
+						</th>
+
+						<td>{{product.product.name}}
+							<br/>
+							<small>{{product.product.subtitle}}</small>
+						</td>
+						<td>{{product.quantity}}</td>
+						<td>{{ (product.product.price /100)| number_format(2,'.',',') }}
+							€</td>
+						<td>
+							{{((product.product.price * product.quantity) /100)| number_format(2,'.',',') }}
+							€</td>
+						<td>
+							<a href="{{ path ('delete_to_cart', {'id':product.product.id}) }}">
+								<img src="{{asset ('assets/img/delete.png')}}" height="18px" alt="Supprimer mon produit">
+							</a>
+						</td>
+
+					</tr>
+					{% set total = total + (product.product.price * product.quantity) %}
+				{% endfor %}
+			</tbody>
+		</table>
+		<div class="text-center mb-5">
+			<b>Nombre de produit :
+			</b>
+			{{cart|length}}<br>
+			<b>Prix total de mon panier :</b>
+			{{ (total/100)| number_format(2,'.',',') }}
+			€
+			<br>
+			<a href="#" class="btn btn-success m-3">Valider mon panier</a>
+		</div>
+	{% else %}
+		<hr>
+		<p>
+			<b>Votre pannier ne contient aucun article pour le moment.</b>
+		</p>
+	{% endif %}
 
 {% endblock %}
